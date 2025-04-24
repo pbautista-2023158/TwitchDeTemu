@@ -1,6 +1,7 @@
 //Manejar la logica de la respuesta del API
 import React, { useState } from 'react'
-import { registerRequest } from '../../../services/api'
+import { registerRequest } from '../../services/api'
+import toast from 'react-hot-toast'
 
 export const useRegister = () => {
     //Ver si aun esta cargando la respuesta al API
@@ -25,17 +26,17 @@ export const useRegister = () => {
             if(response?.err?.response?.data?.errors){
                 let arrayErrors = response?.err?.response?.data?.errors
                 for (const error of arrayErrors) {
-                    return console.log(error.msg)
+                    return toast.error(error.msg)
                 }
             }
-            return console.log(
+            return toast.error(
                 response?.err?.response?.data?.msg ||
                 response?.err?.data?.msg ||
                 'Error general al intentar registrar el usuario.'
             )
         }
         setError(false)
-        return console.log('TODO GOOD')
+        return toast.success('TODO GOOD')
     }
   return {
     register,

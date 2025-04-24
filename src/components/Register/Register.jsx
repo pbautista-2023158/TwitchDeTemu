@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { Input } from '../Input/Input'
-import { useRegister } from '../shared/hooks/useRegister'
-import { emailValidationMessage, passConfirmValidationMessage, passwordValidationMessage, usernameValidationMessage, validateEmail, validatePassConfirm, validatePassword, validateUsername } from '../shared/validators/validator'
+import { useRegister } from '../../shared/hooks/useRegister'
+import { emailValidationMessage, passConfirmValidationMessage, passwordValidationMessage, usernameValidationMessage, validateEmail, validatePassConfirm, validatePassword, validateUsername } from '../../shared/validators/validator'
 
 export const Register = () => {
     const form = {
@@ -28,6 +28,11 @@ export const Register = () => {
     }
     const [formData, setFormData] = useState(form)
     const { register } = useRegister()
+
+    const isSubmitButtonDisabled = !formData.email.isValid ||
+    !formData.username.isValid ||
+    !formData.password.isValid ||
+    !formData.passwordConfirm.isValid 
 
     //Todas las funciones o acciones comienzan con Handle
     const handleSubmit = (event)=>{
@@ -142,7 +147,7 @@ export const Register = () => {
             />                        
 {/*         <label htmlFor=''>Nombre</label>
             <input placeholder={name} name='name' onChange={handleChange} type="text" /> */}
-            <button type='submit'>Enviar</button>
+            <button disabled={isSubmitButtonDisabled} type='submit'>Enviar</button>
         </form>
     </div>
   )
